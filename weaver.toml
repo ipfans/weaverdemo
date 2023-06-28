@@ -1,0 +1,10 @@
+[serviceweaver]
+name="weaverdemo"
+binary="./build/weaverdemo"
+
+[single]
+listeners.listener = {address = "localhost:12345"}
+
+[ssh]
+listeners.listener = {address = "localhost:12345"}
+locations = "ssh_host.txt"

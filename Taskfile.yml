@@ -1,0 +1,26 @@
+# https://taskfile.dev
+
+version: "3"
+
+dotenv:
+  - ".env"
+
+tasks:
+  gen:
+    cmds:
+      - go mod tidy
+      - weaver generate ./...
+
+  default:
+    cmds:
+      - task: gen
+      - go run ./cmd/weaverdemo
+
+  build:
+    cmds:
+      - task: gen
+      - go build -o build/weaverdemo -ldflags "-s -w -buildid=" -trimpath ./cmd/weaverdemo
+      - file build/weaverdemo && ls -lh build/weaverdemo
+    env:
+      GOOS: "{{.GOOS}}"
+      GOARCH: "{{.GOARCH}}"
